@@ -15,7 +15,7 @@ Usage:
 On an interactive job on Gadi:
 
 ```
-qsub -I -X -P e14 -q express -l mem=8GB -l storage=gdata/hh5+gdata/ik11
+qsub -I -X -P e14 -q express -l mem=32GB -l storage=gdata/hh5+gdata/ik11+gdata/e14
 ```
 
 run the following:
@@ -24,7 +24,7 @@ run the following:
 module use /g/data3/hh5/public/modules
 module load conda/analysis3-unstable
 
-python3 make_ryf.py
+python3 make_rhuss.py
 ```
 
 To use this properly the required configuration changes are:
