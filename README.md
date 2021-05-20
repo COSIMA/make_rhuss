@@ -19,7 +19,7 @@ Usage:
 On an interactive job on Gadi:
 
 ```
-qsub -I -X -P e14 -q express -l mem=32GB -l storage=gdata/hh5+gdata/ik11+gdata/e14
+qsub -I -X -P e14 -q express -l mem=32GB -l storage=gdata/hh5+gdata/ik11+gdata/e14+gdata/ua8 -l wd
 ```
 
 run the following:
@@ -39,6 +39,16 @@ To use this properly the required configuration changes are:
 - change `qair_i` to `relh_i` in `ice/input_ice.nml`
 
 - change `qair_ai qair_i` to `relh_ai relh_i` in `namcouple`
+
+- in atmosphere/forcing.json change:
+
+      "filename": "INPUT/RYF.huss.1990_1991.nc",
+      "fieldname": "huss",
+      "cname": "qair_ai"
+  to
+      "filename": "INPUT/RYF.rhuss.1990_1991.nc",
+      "fieldname": "rhuss",
+      "cname": "relh_ai"
 
 
 
