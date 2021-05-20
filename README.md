@@ -11,6 +11,9 @@ The `make_rhuss.py` file creates the relative humidity file from the
 JRA55-do specific humidity file. Currently this is setup to convert only
 the RYF 1990-1991 file, but is easy to generalise.
 
+The "main" branch will work with JRA55 v1.4 data. The "jra55_v1-3"
+branch will work with JRA55 v1.3 data.
+
 Usage:
 
 On an interactive job on Gadi:
