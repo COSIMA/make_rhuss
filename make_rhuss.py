@@ -7,19 +7,19 @@ from calendar import isleap
 import numpy as np
 
 # JRA-55 input file directory
-JRAin = '/g/data/ik11/inputs/JRA-55/RYF/v1-4/'
+JRAin = '/g/data/ik11/inputs/JRA-55/RYF/v1-3/'
 
 # RYF year
 RYFyrs = '1990_1991'
 
 # Input files
-tairfile = os.path.join(JRAin,'RYF.tas.' + RYFyrs + '.nc')
-qairfile = os.path.join(JRAin,'RYF.huss.' + RYFyrs + '.nc')
-slpfile = os.path.join(JRAin,'RYF.psl.' + RYFyrs + '.nc')
+tairfile = os.path.join(JRAin,'RYF.t_10.' + RYFyrs + '.nc')
+qairfile = os.path.join(JRAin,'RYF.q_10.' + RYFyrs + '.nc')
+slpfile = os.path.join(JRAin,'RYF.slp.' + RYFyrs + '.nc')
 
 # Output directory and file
-JRAout = '/g/data/e14/rmh561/access-om2/input/JRA-55/RYF/v1-4/'
-rairfile = os.path.join(JRAout,'RYF.rhuss.' + RYFyrs + '.nc')
+JRAout = '/g/data/e14/rmh561/access-om2/input/JRA-55/RYF/v1-3/'
+rairfile = os.path.join(JRAout,'RYF.r_10.' + RYFyrs + '.nc')
 
 # Load input fields
 qair_ds = xr.open_dataset(qairfile,decode_coords=False)
@@ -27,7 +27,7 @@ tair_ds = xr.open_dataset(tairfile,decode_coords=False)
 slp_ds = xr.open_dataset(slpfile,decode_coords=False)
 
 # Copy specific humidity field and change meta-data
-rair_ds = qair_ds.rename({'huss':'rhuss'})
+rair_ds = qair_ds.rename({'huss_10m':'rhuss'})
 rair_ds["rhuss"].attrs["standard_name"] = "relative_humidity"
 rair_ds["rhuss"].attrs["long_name"] = "Near-Surface Relative Humidity"
 rair_ds["rhuss"].attrs["comment"] = "Near-surface (usually, 2 meter) relative humidity"
@@ -54,10 +54,10 @@ rdgas = 287.04 # gas constant for dry air
 rtgas = rdgas/rvgas # ratio of gas constants
 
 # Saturation specific humidity using Clasius-Clapeyron
-e_sat = eref*np.exp((Lvap/rvgas)*(1./Tffresh-1./tair_ds.tas))
+e_sat = eref*np.exp((Lvap/rvgas)*(1./Tffresh-1./tair_ds.tas_10m))
 
 # vapor pressure
-e = qair_ds.huss*slp_ds.psl/(rtgas+(1.-rtgas)*qair_ds.huss)
+e = qair_ds.huss_10m*slp_ds.psl/(rtgas+(1.-rtgas)*qair_ds.huss_10m)
 
 # relative humidity
 rh = e/e_sat*100.0
