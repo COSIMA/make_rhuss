@@ -19,7 +19,7 @@ Usage:
 On an interactive job on Gadi:
 
 ```
-qsub -I -X -P e14 -q express -l mem=32GB -l storage=gdata/hh5+gdata/ik11+gdata/e14
+qsub -I -X -P e14 -q express -l mem=32GB -l storage=gdata/hh5+gdata/ik11+gdata/e14+gdata/ua8 -l wd
 ```
 
 run the following:
